@@ -8,7 +8,21 @@ class WaifuCubit extends Cubit<WaifuSate> {
 
   Future<void> fetch() async {
     emit(LoadinWaifuState());
-    final imagesUrl = await repository.fetch();
-    emit(DoneWaifuState(imagesUrl: imagesUrl));
+    try {
+      final imagesUrl = await repository.fetch();
+      emit(DoneWaifuState(imagesUrl: imagesUrl));
+    } catch (e) {
+      emit(FailureWaifuState('Error Get images'));
+    }
+  }
+
+  Future<void> fetchTags(Map<String, dynamic> tags) async {
+    emit(LoadinWaifuState());
+    try {
+      final imagesUrl = await repository.fetchTags(tags);
+      emit(DoneWaifuState(imagesUrl: imagesUrl));
+    } catch (e) {
+      emit(FailureWaifuState('Error Get images'));
+    }
   }
 }
