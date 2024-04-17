@@ -5,12 +5,12 @@ sealed class WaifuSate {}
 class LoadinWaifuState implements WaifuSate {}
 
 class DoneWaifuState implements WaifuSate {
-  final List<Waifu> imagesUrl;
-  DoneWaifuState({required this.imagesUrl});
+  final List<Waifu> waifus;
+  DoneWaifuState({required this.waifus});
 }
 
 class EmptyWaifuState extends DoneWaifuState {
-  EmptyWaifuState() : super(imagesUrl: []);
+  EmptyWaifuState() : super(waifus: []);
 }
 
 class FailureWaifuState implements WaifuSate {

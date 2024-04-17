@@ -10,7 +10,7 @@ class WaifuCubit extends Cubit<WaifuSate> {
     emit(LoadinWaifuState());
     try {
       final imagesUrl = await repository.fetch();
-      emit(DoneWaifuState(imagesUrl: imagesUrl));
+      emit(DoneWaifuState(waifus: imagesUrl));
     } catch (e) {
       emit(FailureWaifuState('Error Get images'));
     }
@@ -20,7 +20,7 @@ class WaifuCubit extends Cubit<WaifuSate> {
     emit(LoadinWaifuState());
     try {
       final imagesUrl = await repository.fetchTags(tags);
-      emit(DoneWaifuState(imagesUrl: imagesUrl));
+      emit(DoneWaifuState(waifus: imagesUrl));
     } catch (e) {
       emit(FailureWaifuState('Error Get images'));
     }
