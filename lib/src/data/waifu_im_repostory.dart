@@ -1,4 +1,4 @@
-import 'package:waifu_baby/src/data/wiafu_datasource.dart';
+import 'package:waifu_baby/src/data/waifu_datasource.dart';
 import 'package:waifu_baby/src/models/waifu.dart';
 import 'package:waifu_baby/src/repositoreis/waifu_repostory.dart';
 
@@ -15,6 +15,7 @@ class WaifuImRepostory implements WaifuRepository {
 
   @override
   Future<List<Waifu>> fetchTags(Map<String, dynamic> tags) async {
-    return [];
+    final waifus = await datasource.getWaifusTags(tags);
+    return waifus;
   }
 }
