@@ -29,6 +29,10 @@ class _WaifuPageState extends State<WaifuPage> {
         key: Key('Empty'),
         child: Text('Nenhuma image'),
       );
+    } else if (state is LoadinWaifuState) {
+      body = const Center(
+        child: CircularProgressIndicator(),
+      );
     } else if (state is DoneWaifuState) {
       body = ListView.builder(
           key: const Key('Done'),
@@ -42,7 +46,34 @@ class _WaifuPageState extends State<WaifuPage> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Waifus',
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+      ),
       body: body,
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width / 2,
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blueGrey,
+              ),
+              child: Text('Waifus'),
+            ),
+            ListTile(
+              key: const Key('nsfw'),
+              onTap: () {
+                cubit.fetchTags({'is_nsfw': true, 'limit': 10});
+                Navigator.pop(context);
+              },
+              title: const Text('NSFW'),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

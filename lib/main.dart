@@ -24,9 +24,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
+        theme: ThemeData.dark(
           useMaterial3: true,
-          colorSchemeSeed: Colors.pink,
         ),
         home: const WaifuPage(),
       ),
