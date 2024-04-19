@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:waifu_baby/src/cubits/waifu_cubit.dart';
+import 'package:waifu_baby/src/services/download.dart';
 import 'package:waifu_baby/src/state/waifu_state.dart';
 
 class WaifuPage extends StatefulWidget {
@@ -24,6 +26,7 @@ class _WaifuPageState extends State<WaifuPage> {
     final cubit = context.watch<WaifuCubit>();
     final state = cubit.state;
     Widget body = Container();
+
     if (state is EmptyWaifuState) {
       body = const Center(
         key: Key('Empty'),
@@ -34,15 +37,32 @@ class _WaifuPageState extends State<WaifuPage> {
         child: CircularProgressIndicator(),
       );
     } else if (state is DoneWaifuState) {
-      body = ListView.builder(
-          key: const Key('Done'),
-          itemCount: state.waifus.length,
-          itemBuilder: (context, index) {
-            final waifu = state.waifus[index];
-            return Card(
-              child: Image.network(waifu.url.toString()),
-            );
-          });
+      final waifus = state.waifus;
+      body = ListView(
+        key: const Key('Done'),
+        children: waifus.map((e) {
+          return Stack(
+            children: [
+              Card(
+                child: CachedNetworkImage(imageUrl: e.url.toString()),
+              ),
+              IconButton(
+                  onPressed: () async {
+                    final scaffold = ScaffoldMessenger.of(context);
+                    await Download().save(e.url.toString());
+                    scaffold.showSnackBar(const SnackBar(
+                      content: Text('Download finalizado'),
+                    ));
+                  },
+                  icon: const Icon(Icons.download))
+            ],
+          );
+        }).toList(),
+      );
+    } else if (state is FailureWaifuState) {
+      body = const Center(
+        child: Text('Sem images'),
+      );
     }
 
     return Scaffold(
@@ -70,7 +90,15 @@ class _WaifuPageState extends State<WaifuPage> {
                 Navigator.pop(context);
               },
               title: const Text('NSFW'),
-            )
+            ),
+            ListTile(
+              key: const Key('versatile'),
+              onTap: () {
+                cubit.fetchTags({'versatile': 'waifu', 'limit': 10});
+                Navigator.pop(context);
+              },
+              title: const Text('versatile'),
+            ),
           ],
         ),
       ),
