@@ -11,9 +11,9 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:label="waifu_baby"
+        android:label="waifu baby"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/zerotwo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
