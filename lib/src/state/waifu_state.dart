@@ -6,7 +6,8 @@ class LoadinWaifuState implements WaifuSate {}
 
 class DoneWaifuState implements WaifuSate {
   final List<Waifu> waifus;
-  DoneWaifuState({required this.waifus});
+  final Map<String, dynamic> tags;
+  DoneWaifuState({required this.waifus, this.tags = const {}});
 }
 
 class EmptyWaifuState extends DoneWaifuState {

@@ -41,11 +41,7 @@ class _WaifuPageState extends State<WaifuPage> {
     } else if (state is DoneWaifuState) {
       final waifus = state.waifus;
       body = RefreshIndicator(
-        onRefresh: () => cubit.fetchTags({
-          'is_nsfw': true,
-          'limit': 10,
-          'byte_size': '<200000',
-        }),
+        onRefresh: () => cubit.fetchTags(state.tags),
         child: ListView.builder(
             key: const Key('Done'),
             itemCount: waifus.length,
@@ -100,7 +96,7 @@ class _WaifuPageState extends State<WaifuPage> {
         ),
       ),
       body: body,
-      drawer: DrawerWaifu(),
+      drawer: const DrawerWaifu(),
     );
   }
 }

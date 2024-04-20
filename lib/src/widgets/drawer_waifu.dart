@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:waifu_baby/src/core/constants.dart';
 import 'package:waifu_baby/src/cubits/waifu_cubit.dart';
 
 class DrawerWaifu extends StatelessWidget {
@@ -30,15 +31,31 @@ class DrawerWaifu extends StatelessWidget {
             },
             title: const Text('NSFW'),
           ),
-          ListTile(
-            key: const Key('versatile'),
-            onTap: () {
-              cubit.fetchTags(
-                  {'versatile': 'waifu', 'limit': 10, 'byte_size': '<200000'});
-              Navigator.pop(context);
-            },
-            title: const Text('versatile'),
-          ),
+          ...nsfw.map((e) => ListTile(
+                onTap: () {
+                  cubit.fetchTags({
+                    'is_nsfw': true,
+                    'NSFW': e,
+                    'limit': 10,
+                    'byte_size': '<200000',
+                  });
+
+                  Navigator.pop(context);
+                },
+                title: Text('NSFW-$e'),
+              )),
+          ...versatile.map((e) => ListTile(
+                onTap: () {
+                  cubit.fetchTags({
+                    'versatile': e,
+                    'limit': 10,
+                    'byte_size': '<200000',
+                  });
+
+                  Navigator.pop(context);
+                },
+                title: Text('versatile-$e'),
+              )),
         ],
       ),
     );
