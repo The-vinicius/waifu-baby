@@ -15,9 +15,20 @@ class DrawerWaifu extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blueGrey,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/zerotwo.png'),
+              ),
             ),
-            child: Text('Waifus'),
+            child: Text(
+              'Waifus',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black87,
+                fontWeight: FontWeight.w700,
+                shadows: [Shadow(color: Colors.black, offset: Offset(1, 0))],
+              ),
+            ),
           ),
           ListTile(
             key: const Key('nsfw'),
