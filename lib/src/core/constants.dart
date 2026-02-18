@@ -5,7 +5,7 @@ List<String> versatile = [
   'mori-calliope',
   'raiden-shogun',
   'oppai',
-  'selfies',
+  'genshin-impact',
   'uniform',
   'kamisato-ayaka',
 ];
@@ -19,4 +19,3 @@ List<String> nsfw = [
   'paizuri',
   'ecchi',
 ];
-

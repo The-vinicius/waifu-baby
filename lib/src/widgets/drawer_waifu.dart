@@ -34,7 +34,7 @@ class DrawerWaifu extends StatelessWidget {
             key: const Key('nsfw'),
             onTap: () {
               cubit.fetchTags({
-                'is_nsfw': true,
+                'IsNsfw': true,
                 'limit': 10,
                 'byte_size': '<200000',
               });
@@ -45,10 +45,10 @@ class DrawerWaifu extends StatelessWidget {
           ...nsfw.map((e) => ListTile(
                 onTap: () {
                   cubit.fetchTags({
-                    'is_nsfw': true,
-                    'NSFW': e,
-                    'limit': 10,
-                    'byte_size': '<200000',
+                    'IsNsfw': true,
+                    'IncludedTags': e,
+                    'PageSize': 10,
+                    'byteSize': '<200000',
                   });
 
                   Navigator.pop(context);
@@ -58,9 +58,10 @@ class DrawerWaifu extends StatelessWidget {
           ...versatile.map((e) => ListTile(
                 onTap: () {
                   cubit.fetchTags({
-                    'versatile': e,
-                    'limit': 10,
-                    'byte_size': '<200000',
+                    'IsNsfw': true,
+                    'IncludedTags': e,
+                    'PageSize': 10,
+                    'byteSize': '<200000',
                   });
 
                   Navigator.pop(context);

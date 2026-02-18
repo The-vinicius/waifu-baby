@@ -4,7 +4,7 @@ import 'package:waifu_baby/src/models/waifu.dart';
 
 class WaifuDatasource {
   Future<List<Waifu>> getWaifus() async {
-    final response = await Dio().get("https://api.waifu.im/search");
+    final response = await Dio().get("https://api.waifu.im/images");
     final json = response.data as Map<String, dynamic>;
     final waifus =
         (json['images'] as List<dynamic>).map((e) => fromMap(e)).toList();
@@ -13,10 +13,10 @@ class WaifuDatasource {
 
   Future<List<Waifu>> getWaifusTags(Map<String, dynamic> tags) async {
     final response =
-        await Dio().get("https://api.waifu.im/search", queryParameters: tags);
+        await Dio().get("https://api.waifu.im/images", queryParameters: tags);
     final json = response.data as Map<String, dynamic>;
     final waifus =
-        (json['images'] as List<dynamic>).map((e) => fromMap(e)).toList();
+        (json['items'] as List<dynamic>).map((e) => fromMap(e)).toList();
     return waifus;
   }
 }
